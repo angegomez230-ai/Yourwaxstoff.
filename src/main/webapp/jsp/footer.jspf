@@ -1,0 +1,41 @@
+<%-- ============================================================
+     footer.jspf
+     Gemeinsamer Footer für alle Seiten, per include-Direktive
+     eingebunden.
+     Bindet script.js ein, zeigt bei Bedarf Login-/Registrierungs-
+     Fehlermeldungen an, und schliesst body/html.
+     ============================================================ --%>
+    <script src="../js/script.js"></script> 
+  
+<%
+    // Falls KundeAppl.jsp uns hierher mit einem Fehler-Parameter
+    // zurückgeschickt hat: Meldung zeigen und das passende Popup
+    // gleich wieder öffnen. Muss NACH dem script-Tag stehen, damit
+    // openPopup() zu diesem Zeitpunkt schon definiert ist.
+    if ("1".equals(request.getParameter("loginFehler"))) {
+%>
+        <script>
+            alert("E-Mail oder Passwort ist falsch.");
+            openPopup('login-popup');
+        </script>
+<%
+    }
+    if ("1".equals(request.getParameter("registrierungFehler"))) {
+%>
+        <script>
+            alert("Für diese E-Mail-Adresse existiert bereits ein Konto.");
+            openPopup('register-popup');
+        </script>
+<%
+    }
+    if ("1".equals(request.getParameter("bitteEinloggen"))) {
+%>
+        <script>
+            alert("Bitte melde dich zuerst an, um zu bestellen.");
+            openPopup('login-popup');
+        </script>
+<%
+    }
+%>
+</body>
+</html>

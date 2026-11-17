@@ -1,0 +1,120 @@
+<%-- ============================================================
+     header.jspf
+     Gemeinsamer Header für alle Seiten, per include-Direktive
+     eingebunden.
+     Enthält Doctype-Anfang, CSS-Verlinkung, Navigation, das
+     Konto-Symbol (mit Login/Registrieren bzw. Willkommen/Abmelden)
+     sowie die Login- und Registrierungs-Popups.
+     ============================================================ --%>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Waxstoff</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<%
+    // Prüfen, ob gerade jemand eingeloggt ist. Die volle Klassen-
+    // angabe (statt einer eigenen Page-Import-Direktive) wird bewusst
+    // benutzt, damit header.jspf unabhängig davon funktioniert, welche
+    // Imports die jeweils einbindende JSP-Seite schon hat.
+    de.hwg_lu.bwi520.yourwaxstoff.beans.KundeBean eingeloggterKunde =
+        (de.hwg_lu.bwi520.yourwaxstoff.beans.KundeBean) session.getAttribute("eingeloggterKunde");
+%>
+
+    <header class="header">
+        <a class="logo" href="StartseiteView.jsp">Your Waxstoff</a>
+        <nav>
+            <a href="StartseiteView.jsp">Startseite</a>
+            <a href="BestellungVerfolgenView.jsp">Bestellung verfolgen</a>
+            <a href="UeberUnsView.jsp">&Uuml;ber uns</a>
+            <a href="GroessenberaterView.jsp">Gr&ouml;&szlig;enberater</a>
+        </nav>
+
+        <div class="konto-icon-wrapper">
+            <span class="konto-icon" onclick="toggleKontoMenu()">&#128100;</span>
+            <div id="konto-dropdown" class="konto-dropdown hidden">
+                <% if (eingeloggterKunde != null) { %>
+                    <%-- Eingeloggt: Begrüßung + Konto-Link + Abmelden --%>
+                    <div class="konto-willkommen">Willkommen, <%= eingeloggterKunde.getVorname() %>!</div>
+                    <a href="KontoView.jsp">Mein Konto</a>
+                    <a href="KundeAppl.jsp?action=abmelden">Abmelden</a>
+                <% } else { %>
+                    <%-- Nicht eingeloggt: öffnet die passenden Popups --%>
+                    <a href="#" onclick="closeDropdownAndOpenPopup('login-popup'); return false;">Anmelden</a>
+                    <a href="#" onclick="closeDropdownAndOpenPopup('register-popup'); return false;">Registrieren</a>
+                <% } %>
+            </div>
+        </div>
+    </header>
+
+    <%-- ========================================================
+         Login-Popup — überall verfügbar, weil header.jspf auf
+         jeder Seite eingebunden wird.
+         ======================================================== --%>
+    <div id="login-popup" class="popup-overlay hidden">
+        <div class="popup-box">
+            <h2>Anmelden</h2>
+            <form method="post" action="KundeAppl.jsp" onsubmit="return pruefeLoginFormular()">
+                <input type="hidden" name="action" value="login">
+                <div class="form-group">
+                    <label for="login-email">E-Mail</label>
+                    <input type="email" id="login-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-passwort">Passwort</label>
+                    <input type="password" id="login-passwort" name="passwort" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;">Anmelden</button>
+                <p style="text-align:center; margin-top:1rem;">
+                    Noch kein Konto?
+                    <a href="#" onclick="closePopup('login-popup'); openPopup('register-popup'); return false;">Registrieren</a>
+                </p>
+            </form>
+            <button class="btn-secondary" style="width:100%; margin-top:0.5rem;" onclick="closePopup('login-popup')">Abbrechen</button>
+        </div>
+    </div>
+
+    <%-- ========================================================
+         Registrierungs-Popup
+         ======================================================== --%>
+    <div id="register-popup" class="popup-overlay hidden">
+        <div class="popup-box">
+            <h2>Konto erstellen</h2>
+            <form method="post" action="KundeAppl.jsp" onsubmit="return pruefeRegistrierungsformular()">
+                <input type="hidden" name="action" value="registrieren">
+                <div class="form-group">
+                    <label for="reg-vorname">Vorname</label>
+                    <input type="text" id="reg-vorname" name="vorname" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-nachname">Nachname</label>
+                    <input type="text" id="reg-nachname" name="nachname" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">E-Mail</label>
+                    <input type="email" id="reg-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-adresse">Adresse</label>
+                    <input type="text" id="reg-adresse" name="adresse" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-passwort">Passwort</label>
+                    <input type="password" id="reg-passwort" name="passwort" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-passwort-wiederholung">Passwort wiederholen</label>
+                    <input type="password" id="reg-passwort-wiederholung" name="passwortWiederholung" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;">Konto erstellen</button>
+                <p style="text-align:center; margin-top:1rem;">
+                    Schon ein Konto?
+                    <a href="#" onclick="closePopup('register-popup'); openPopup('login-popup'); return false;">Anmelden</a>
+                </p>
+            </form>
+            <button class="btn-secondary" style="width:100%; margin-top:0.5rem;" onclick="closePopup('register-popup')">Abbrechen</button>
+        </div>
+    </div>

@@ -1,0 +1,530 @@
+/* ============================================================
+   Wax-Plattform — style.css
+   Farbpalette und Layout-Prinzipien aus Projektkonzept.md, Kapitel 6
+   ============================================================ */
+
+:root {
+    --color-bg: #FAF6F0;       /* Warmes Off-White */
+    --color-primary: #C1553B;  /* Terrakotta */
+    --color-primary-dark: #A8452E;
+    --color-accent: #E0A93C;   /* Senfgelb */
+    --color-text: #2E2A26;     /* Dunkles Braun-Grau */
+    --color-border: #EFE4D6;   /* Helles Beige */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: system-ui, "Segoe UI", sans-serif;
+    line-height: 1.5;
+}
+
+a {
+    color: inherit;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 2rem;
+    background: var(--color-primary);
+    color: white;
+}
+
+.header .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: white;
+}
+
+.header nav {
+    margin-left: auto;
+    display: flex;
+    align-items: left;
+    gap: 1.5rem;
+}
+
+.header nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.header nav a:hover {
+    text-decoration: underline;
+}
+
+.konto-icon-wrapper {
+    position: relative;
+}
+
+.konto-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.konto-dropdown {
+    position: absolute;
+    right: 0;
+    top: 2.2rem;
+    background: white;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    padding: 0.75rem 1rem;
+    min-width: 180px;
+    z-index: 500;
+}
+
+.konto-dropdown.hidden {
+    display: none;
+}
+
+.konto-dropdown a {
+    display: block;
+    padding: 0.4rem 0;
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.konto-dropdown a:hover {
+    color: var(--color-primary);
+}
+
+
+.konto-willkommen {
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+
+/* ============================================================
+   FILTERLEISTE (Startseite)
+   ============================================================ */
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: var(--color-border);
+}
+
+.filter-bar button,
+.filter-bar select {
+    padding: 0.5rem 1.1rem;
+    border-radius: 20px;
+    border: 1px solid var(--color-primary);
+    background: white;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.filter-bar button:hover,
+.filter-bar button.active {
+    background: var(--color-primary);
+    color: white;
+}
+
+
+/* ============================================================
+   PRODUKTRASTER (Startseite / Katalog)
+   ============================================================ */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.product-card {
+    display: block;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Dynamischer Hover-Effekt laut Design-Konzept — rein CSS, kein JS nötig */
+.product-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.product-card .info {
+    padding: 0.75rem 1rem 1rem;
+}
+
+.product-card .name {
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+}
+
+.product-card .price {
+    color: var(--color-accent);
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+
+/* ============================================================
+   ARTIKEL-DETAILSEITE (zweispaltig, Amazon-Stil)
+   ============================================================ */
+
+.detail-page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.detail-page .image-col {
+    flex: 1 1 350px;
+}
+
+.detail-page .image-col img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+}
+
+.detail-page .info-col {
+    flex: 1 1 350px;
+}
+
+.detail-page h1 {
+    margin-top: 0;
+}
+
+.detail-page .beschreibung {
+    color: var(--color-text);
+    margin: 1rem 0 1.5rem;
+}
+
+.detail-page .price {
+    font-size: 1.6rem;
+    color: var(--color-accent);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn-primary {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-dark);
+}
+
+.btn-secondary {
+    background: white;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+
+/* ============================================================
+   SCHNEIDEREI-AUSWAHLSEITE
+   ============================================================ */
+
+.schneiderei-title {
+    text-align: center;
+    font-size: 1.6rem;
+    margin: 2rem 0 1rem;
+}
+
+.modell-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.25rem;
+    padding: 1rem 2rem 2rem;
+}
+
+.modell-card {
+    display: block;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.modell-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.10);
+}
+
+.modell-card.selected {
+    border-color: var(--color-primary);
+    border-width: 2px;
+}
+
+.modell-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.modell-card .name {
+    padding: 0.6rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Zweispaltige Schneiderei-Auswahl: Damen links, Herren rechts */
+.modell-zweispaltig {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 1rem 2rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.modell-spalte h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+}
+
+.modell-karte-auswahl {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.modell-karte-auswahl img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.modell-karte-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.modell-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.modell-karte-info select,
+.modell-karte-info input[type="number"] {
+    padding: 0.4rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+
+/* ============================================================
+   POPUP (Schneiden-Popup)
+   ============================================================ */
+
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-overlay.hidden {
+    display: none;
+}
+
+.popup-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 14px;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.popup-box h2 {
+    margin-top: 0;
+}
+
+.popup-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+
+/* ============================================================
+   FORMULARE (Bestellformular, Bewertung, Bestellung verfolgen)
+   ============================================================ */
+
+.form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+}
+
+.form-group {
+    margin-bottom: 1.1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.65rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+
+/* ============================================================
+   BESTELLBESTÄTIGUNG / BESTELLUNG VERFOLGEN
+   ============================================================ */
+
+.confirmation-box {
+    max-width: 500px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.bestellnummer {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 1rem 0;
+}
+
+.tracking-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.tracking-item:last-child {
+    border-bottom: none;
+}
+
+.lieferhinweis {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--color-border);
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+}
+
+
+/* ============================================================
+   BEWERTUNG (Sterne)
+   ============================================================ */
+
+.star-rating {
+    display: flex;
+    gap: 0.25rem;
+    font-size: 1.6rem;
+    color: var(--color-border);
+    cursor: pointer;
+}
+
+.star-rating .star.active {
+    color: var(--color-accent);
+}
