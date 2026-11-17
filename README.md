@@ -20,9 +20,9 @@ Die Anwendung ermöglicht es, verschiedene Stoffe im Produktkatalog anzusehen un
 
 ## Meine Mitarbeit
 
-Im Rahmen des Gruppenprojekts habe ich an der Entwicklung der Anwendung mitgewirkt.
+Im Rahmen des Hochschul-Gruppenprojekts habe ich an der Entwicklung der Webanwendung mitgewirkt.
 
-Anschließend habe ich das Projekt eigenständig für die Präsentation auf GitHub vorbereitet, den Datenbankzugriff über Umgebungsvariablen konfiguriert und die Git-Historie bereinigt.
+Anschließend habe ich das Projekt eigenständig für mein Portfolio auf GitHub aufbereitet und den Datenbankzugriff über Umgebungsvariablen konfiguriert.
 
 ## Live-Demo
 
